@@ -1,0 +1,19 @@
+version: "3"
+services:
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+      #command: --cleanup --schedule "0 30 3 * * *"
+    environment:
+      TZ: 'Europe/Budapest'
+      WATCHTOWER_CLEANUP: 'true'
+      WATCHTOWER_SCHEDULE: '0 30 3 * * *'
+      WATCHTOWER_NOTIFICATIONS: 'gotify'
+      WATCHTOWER_NOTIFICATION_GOTIFY_URL: 'http://172.17.0.1:8020/'
+      WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN: 'A.2..7jjhppNo75'
+      WATCHTOWER_NOTIFICATION_GOTIFY_TLS_SKIP_VERIFY: 'true'
+    ports:
+      - 8010:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
